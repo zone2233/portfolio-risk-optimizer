@@ -2,13 +2,13 @@ import numpy as np
 import pandas as pd
 
 
-def portfolio_volatility(returns, w):
+def portfolio_volatility(returns, ticker1, ticker2, w):
     """Annualised volatility of a portfolio with weight w in SPY and 1 - w in GLD."""
     if not 0 <= w <= 1:
         raise ValueError(f"w must be between 0 and 1, got {w}")
-    var_spy = returns["SPY"].var()
-    var_gld = returns["GLD"].var()
-    cov_sg = returns["SPY"].cov(returns["GLD"])
+    var_spy = returns[f"{ticker1}"].var()
+    var_gld = returns[f"{ticker2}"].var()
+    cov_sg = returns[f"{ticker1}"].cov(returns[f"{ticker2}"])
     var_portfolio = w ** 2 * var_spy + (1 - w) ** 2 * var_gld + 2 * w * (1 - w) * cov_sg 
     daily_volatility = np.sqrt(var_portfolio)
     annual_volatility = daily_volatility * np.sqrt(252)
