@@ -1,11 +1,12 @@
 import yfinance as yf
 import pandas as pd
+from datetime import date
 
 ticker_spy = "SPY"
 ticker_gld = "GLD"
 
-def get_return(ticker: str) -> pd.DataFrame:
-    data = yf.download(ticker, start='2025-01-01', end='2026-01-01', auto_adjust = True)
+def get_return(ticker: str, start: date, end: date) -> pd.DataFrame:
+    data = yf.download(ticker, start=start, end=end, auto_adjust = True)
 
     if data.empty:
         raise ValueError(f"No data found for {ticker}")
@@ -19,12 +20,16 @@ def combine_df(df1: pd.DataFrame, df2: pd.DataFrame) -> pd.DataFrame:
     daily_returns = pd.concat([df1, df2], axis=1).dropna()
     return daily_returns
 
-df_spy = get_return(ticker_spy)
-df_gld = get_return(ticker_gld)
+if __name__ == "__main__":
+    start = '2025-01-01'
+    end = '2026-01-01'
 
-returns = combine_df(df_spy, df_gld)
+    df_spy = get_return(ticker_spy, start, end)
+    df_gld = get_return(ticker_gld, start, end)
 
-print(returns.head())
+    returns = combine_df(df_spy, df_gld)
+
+    print(returns.head())
 
 #data_spy = yf.download(ticker_spy, start='2020-01-01', end='2026-01-01', auto_adjust = True)
 #data_gld = yf.download(ticker_gld, start='2020-01-01', end='2026-01-01', auto_adjust = True)
