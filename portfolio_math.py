@@ -14,13 +14,13 @@ def portfolio_volatility(returns, ticker1, ticker2, w):
     annual_volatility = daily_volatility * np.sqrt(252)
     return annual_volatility
 
-def min_volatility_weight(returns):
-    """Return (weight in SPY, annualised volatility) of the minimum-volatility portfolio."""
+def min_volatility_weight(returns, ticker1, ticker2):
+    """Return (weight in ticker1, annualised volatility) of the minimum-volatility portfolio."""
     min_volatility_w = 0.0
-    annual_min_volatility = portfolio_volatility(returns, 0)
+    annual_min_volatility = portfolio_volatility(returns, ticker1, ticker2, 0)
     for i in range(101):
         w = i / 100
-        vol = portfolio_volatility(returns, w)
+        vol = portfolio_volatility(returns, ticker1, ticker2, w)
         if vol < annual_min_volatility:
             min_volatility_w = w
             annual_min_volatility = vol
@@ -31,7 +31,7 @@ if __name__ == "__main__":
         "SPY": [0.01, -0.02, 0.015, 0.005],
         "GLD": [-0.005, 0.01, 0.0, 0.002],
     })
-    best_w, best_vol = min_volatility_weight(fake)
+    best_w, best_vol = min_volatility_weight(fake, "SPY", "GLD")
     print(best_w, best_vol)
 
 
