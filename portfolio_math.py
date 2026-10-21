@@ -26,6 +26,17 @@ def min_volatility_weight(returns, ticker1, ticker2):
             annual_min_volatility = vol
     return min_volatility_w, annual_min_volatility
 
+def volatility_curve(returns, ticker1, ticker2):
+    """Return (weights, volatilities) for ticker1-weights 0.00, 0.01, ..., 1.00."""
+    weights = []
+    vols = []
+    for i in range(101):
+        w = i / 100
+        weights.append(w)
+        vols.append(portfolio_volatility(returns, ticker1, ticker2, w))
+    return weights, vols
+
+
 if __name__ == "__main__":
     fake = pd.DataFrame({
         "SPY": [0.01, -0.02, 0.015, 0.005],
@@ -33,6 +44,8 @@ if __name__ == "__main__":
     })
     best_w, best_vol = min_volatility_weight(fake, "SPY", "GLD")
     print(best_w, best_vol)
+    weights, vols = volatility_curve(fake, "SPY", "GLD")
+    print(len(weights), weights[28], vols[28])
 
 
 
