@@ -1,0 +1,2 @@
+# Frontend dependency only; existing backend dependencies stay in your environment.
+streamlit>=1.40,<2
