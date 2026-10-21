@@ -9,8 +9,8 @@ No existing backend file has been changed.
 From this project directory, use the existing environment:
 
 ```sh
-source nenv/bin/activate
-python -m pip install -r requirements-ui.txt
+source venv/bin/activate
+python -m pip install -r requirements.txt
 streamlit run app.py
 ```
 
@@ -138,7 +138,7 @@ has been changed. Add these checks yourself if useful.
 ## Frontend verification
 
 ```sh
-nenv/bin/python -m unittest discover -s tests -p 'test_frontend.py'
+venv/bin/python -m unittest discover -s tests -p 'test_frontend.py'
 ```
 
 The tests use Streamlit's `AppTest` and isolated market-data/optimizer test
