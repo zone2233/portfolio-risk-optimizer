@@ -57,6 +57,7 @@ towards a balanced mix.
 | `portfolio_math.py` | Portfolio volatility, volatility curve, optimiser |
 | `analysis.py` | Command-line analysis: prints the result, saves the chart |
 | `app.py` | Streamlit web interface for any pair of tickers |
+| `tests/` | pytest checks of the optimiser against the closed-form minimum |
 
 ## How to run
 
@@ -67,4 +68,5 @@ python -m pip install -r requirements.txt
 
 python analysis.py              # SPY/GLD for 2025, saves risk_curve.png
 python -m streamlit run app.py  # interactive web app
+python -m pytest                # run the tests
 ```
